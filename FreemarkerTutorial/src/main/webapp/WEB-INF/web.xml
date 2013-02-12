@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+
+	<display-name>FreeMarker Contacts</display-name>
+    
+    <welcome-file-list>
+        <welcome-file>home.ftl</welcome-file>
+    </welcome-file-list>
+ 
+ <!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring/spring-context.xml</param-value>
+	</context-param>
+	
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
+    <servlet>
+        <servlet-name>freemarker</servlet-name>
+        <servlet-class>freemarker.ext.servlet.FreemarkerServlet</servlet-class>
+ 
+        <!-- FreemarkerServlet settings: -->
+        <init-param>
+            <param-name>TemplatePath</param-name>
+            <param-value>/WEB-INF</param-value>
+        </init-param>
+        <init-param>
+            <param-name>NoCache</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ContentType</param-name>
+            <param-value>text/html; charset=UTF-8</param-value>
+            <!-- Forces UTF-8 output encoding! -->
+        </init-param>
+ 
+        <!-- FreeMarker settings: -->
+        <init-param>
+            <param-name>template_update_delay</param-name>
+            <param-value>0</param-value>
+            <!-- 0 is for development only! Use higher value otherwise. -->
+        </init-param>
+        <init-param>
+            <param-name>default_encoding</param-name>
+            <param-value>ISO-8859-1</param-value>
+            <!-- The encoding of the template files. -->
+        </init-param>
+        <init-param>
+            <param-name>number_format</param-name>
+            <param-value>0.##########</param-value>
+        </init-param>
+        
+        <!-- adding this init param freemarker will automatically import the layout to all pages  -->
+		<init-param>
+		      <param-name>auto_import</param-name>
+		      <param-value>layout/defaultLayout.ftl as layout</param-value>
+		</init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+ 
+    <servlet-mapping>
+        <servlet-name>freemarker</servlet-name>
+        <url-pattern>*.ftl</url-pattern>
+    </servlet-mapping>
+ 
+    <servlet>
+        <servlet-name>home</servlet-name>
+        <servlet-class>org.freemarker.web.controller.ContactHomeController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>home</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>list</servlet-name>
+        <servlet-class>org.freemarker.web.controller.ContactListController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>list</servlet-name>
+        <url-pattern>/list</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>add</servlet-name>
+        <servlet-class>org.freemarker.web.controller.ContactAddController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>add</servlet-name>
+        <url-pattern>/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>statistics</servlet-name>
+        <servlet-class>org.freemarker.web.controller.ContactStatisticsController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>statistics</servlet-name>
+        <url-pattern>/statistics</url-pattern>
+    </servlet-mapping>
+
+   <servlet>
+        <servlet-name>testCalendar</servlet-name>
+        <servlet-class>org.freemarker.web.controller.CalendarTestController</servlet-class>
+    </servlet>
+ 
+    <servlet-mapping>
+        <servlet-name>testCalendar</servlet-name>
+        <url-pattern>/testCalendar</url-pattern>
+    </servlet-mapping>
+    
+</web-app>

@@ -1,0 +1,41 @@
+.main-panel {
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.tmpl-header, .tmpl-footer {
+	height: auto;
+	width: 800px;
+}
+
+.tmpl-body {
+	height: auto;
+	width: 800px;
+}
+
+.yui3-button {
+	font-size: 75% !important;
+}
+
+table {
+	margin-bottom: 10px;
+}
+
+.selectBirthDateBtn {
+	float: left;
+	clear: left;
+}
+
+.errorMsg {
+	font-size: 0.75em;
+	color: red;
+}
+
+.popup {
+	z-index: 10;
+	position: relative;
+	height: 250px;
+	width: 300px;
+	margin-left: 100px;
+}
